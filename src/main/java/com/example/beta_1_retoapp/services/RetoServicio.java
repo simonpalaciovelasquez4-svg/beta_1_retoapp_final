@@ -33,7 +33,7 @@ public class RetoServicio {
 
     private void validarRetoNuevo(Reto reto) {
         validarReto(reto);
-        if (retoRepository.existsById(reto.getId())) {
+        if (retoRepository.existsById((UUID) reto.getId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El ID del reto ya existe");
         }
     }
@@ -49,7 +49,7 @@ public class RetoServicio {
 
     public Reto modificarReto(Reto reto) {
         validarReto(reto);
-        Optional<Reto> retoExistente = retoRepository.findById(reto.getId());
+        Optional<Reto> retoExistente = retoRepository.findById((UUID) reto.getId());
         if (retoExistente.isPresent()) {
             return retoRepository.save(reto);
         } else {
